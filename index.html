@@ -1,0 +1,63 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Code Challenge | Page 1</title>
+</head>
+<body>
+
+  <script src="//player.ooyala.com/core/30ea70d7f08345ecbb535232e78f9013"></script>
+  <link rel="stylesheet" href="styles.css"/>
+
+  <!-- The following div will contain the instantiated player, and is identified by id -->
+  <header>
+    <div class="tab">
+  <button class="tablinks" onclick="parent.location='index.html'">First Page</button>
+  <button class="tablinks" onclick="parent.location='second.html'">Second Page</button>
+
+</div>
+
+  </header>
+
+
+  <div id='container' ></div>
+
+
+  <div class="controls">
+
+    <button onclick="window.pp.play()">Play</button>
+    <button onclick="window.pp.pause()">Pause</button>
+    <button onclick="volDn()">Vol -</button>
+    <button onclick="volUp()">Vol +</button>
+
+  </div>
+  <!-- Player parameter modify some basic player behaviors and looks -->
+  <script>
+  var playerParam = {
+    'autoplay':true,
+    'loop':true
+  };
+  OO.ready(function() {
+    window.pp = OO.Player.create('container', '03NWFkYzE6Y5dBaaa1WLsQD6MjwVYEJb', playerParam);
+
+  });
+
+  var volUp = function(){
+    var volTmp = parseFloat(window.pp.getVolume());
+    var more = (volTmp < 1) ? 0.1 : 0;
+    window.pp.setVolume( volTmp + more );
+
+  }
+  var volDn = function(){
+    volTmp = parseFloat(window.pp.getVolume());
+    var less = (volTmp > 0) ? 0.1 : 0;
+    window.pp.setVolume( volTmp - less );
+  }
+  </script>
+
+
+</body>
+</html>

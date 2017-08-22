@@ -1,0 +1,40 @@
+
+
+
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Code Challenge | Page 2</title>
+    </head>
+    <body>
+
+      <script src="//player.ooyala.com/core/30ea70d7f08345ecbb535232e78f9013"></script>
+      <link rel="stylesheet" href="styles.css"/>
+
+<!-- The following div will contain the instantiated player, and is identified by id -->
+      <header>
+        <div class="tab">
+          <button class="tablinks" onclick="parent.location='index.html'">First Page</button>
+          <button class="tablinks" onclick="parent.location='second.html'">Second Page</button>
+
+    </div>
+
+
+      </header>
+
+
+<div id='container' ></div>
+
+<!-- Player parameter modify some basic player behaviors and looks -->
+<script>
+  var playerParam = {
+    'autoplay':false,
+    'loop':false
+  };
+  OO.ready(function() {window.pp = OO.Player.create('container', 'VidW5kYzE6x01G_XexBxLFymIL4IugoG', playerParam);});
+</script>
+
+
+     </body>
+  </html>
