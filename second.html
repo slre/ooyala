@@ -1,40 +1,113 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Code Challenge | Page 2</title>
+</head>
+<body>
 
+  <script src="//player.ooyala.com/core/30ea70d7f08345ecbb535232e78f9013"></script>
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
+  <link rel="stylesheet" href="styles.css"/>
 
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Code Challenge | Page 2</title>
-    </head>
-    <body>
-
-      <script src="//player.ooyala.com/core/30ea70d7f08345ecbb535232e78f9013"></script>
-      <link rel="stylesheet" href="styles.css"/>
-
-<!-- The following div will contain the instantiated player, and is identified by id -->
-      <header>
-        <div class="tab">
-          <button class="tablinks" onclick="parent.location='index.html'">First Page</button>
-          <button class="tablinks" onclick="parent.location='second.html'">Second Page</button>
+  <!-- The following div will contain the instantiated player, and is identified by id -->
+  <header>
+    <div class="tab">
+      <button class="tablinks" onclick="parent.location='index.html'">First Page</button>
+      <button class="tablinks" onclick="parent.location='second.html'">Second Page</button>
 
     </div>
 
+  </header>
 
-      </header>
+  <div class="bus-message-container">
+
+    <div >
+      Bus Message :
+    </div>
+    &nbsp;
+    <div class="bus-message">
+
+    </div>
+
+  </div>
 
 
-<div id='container' ></div>
+  <div id='container' ></div>
 
-<!-- Player parameter modify some basic player behaviors and looks -->
-<script>
+
+  <div class="controls">
+
+    <button onclick="window.pp.play()">Play</button>
+    <button onclick="window.pp.pause()">Pause</button>
+    <button onclick="volDn()">Vol -</button>
+    <button onclick="volUp()">Vol +</button>
+
+  </div>
+  <!-- Player parameter modify some basic player behaviors and looks -->
+  <script>
   var playerParam = {
     'autoplay':false,
-    'loop':false
+    'loop':false,
+    onCreate : window.onCreate,
+    "debug":true,
+    "skin": {
+      "config": "//player.ooyala.com/static/v4/production/latest/skin-plugin/skin.json",
+      "inline": {
+        "startScreen": {"showDescription": false, "playIconStyle": {"color": "blue"}}
+      }
+    }
   };
-  OO.ready(function() {window.pp = OO.Player.create('container', 'VidW5kYzE6x01G_XexBxLFymIL4IugoG', playerParam);});
-</script>
+  OO.ready(function() {
+    window.pp = OO.Player.create('container', 'VidW5kYzE6x01G_XexBxLFymIL4IugoG', playerParam);
+
+  });
+
+  function onCreate(player) {
+
+    /*
+    * Subscribe to all events:
+    * this allows you to create logic
+    * based on multiple events.
+    */
+    player.mb.subscribe("*" , 'container', function(eventName) {
+
+      /* Write all events, except for downloading and playhead time changed events,
+      * to the JavaScript console: */
+      if (eventName != OO.EVENTS.DOWNLOADING && eventName != OO.EVENTS.PLAYHEAD_TIME_CHANGED){
+        $('.bus-message').text(eventName);
+      }
+
+    });
+
+    /* Subscribe to the PLAYED event,
+    * which only occurs when the video has finished playing: */
+    player.mb.subscribe(OO.EVENTS.PLAYED , 'container', function(eventName) {
+
+      /* Destroy the player and properly dispose of its resources: */
+      //player.destroy();
+
+      /* Notify the user: */
+      //alert('The player has been destroyed!');
+
+      $('.innerWrapper').addClass('spin');
+    });
+  }
+
+  var volUp = function(){
+    var volTmp = parseFloat(window.pp.getVolume());
+    var more = (volTmp < 1) ? 0.1 : 0;
+    window.pp.setVolume( volTmp + more );
+
+  }
+  var volDn = function(){
+    volTmp = parseFloat(window.pp.getVolume());
+    var less = (volTmp > 0) ? 0.1 : 0;
+    window.pp.setVolume( volTmp - less );
+  }
+  </script>
 
 
-     </body>
-  </html>
+</body>
+</html>

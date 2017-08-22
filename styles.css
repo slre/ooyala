@@ -73,6 +73,21 @@ div.tab button.active {
     -ms-animation-timing-function: linear;
 }
 
+
+.bus-message-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+
+}
+.bus-message-container > div{
+  display: flex;
+}
+.bus-message-container .bus-message {
+  color: #19267D;
+  font-weight: bold;
+}
 @-webkit-keyframes spin {
       from {
         -webkit-transform:rotate(0deg);
